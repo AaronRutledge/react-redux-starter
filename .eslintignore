@@ -1,0 +1,7 @@
+# Ignore built files except build/index.js
+bin/*
+build/*
+!build/index.js
+config/*
+mock_node_server/*
+src/js/devTools/*
