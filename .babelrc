@@ -9,6 +9,5 @@
       "sourceMaps": "inline",
       "presets": ["react-hmre"]
     }
-  },
-  "plugins": ["transform-runtime", [ "babel-plugin-webpack-alias", { "config": "./config/webpack.config.dev.js" } ]]
+  }
 }

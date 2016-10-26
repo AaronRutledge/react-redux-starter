@@ -4,9 +4,9 @@ const autoprefixer = require('autoprefixer');
 
 // App files location
 const PATHS = {
-  app: path.resolve(__dirname, '../src/js'),
-  styles: path.resolve(__dirname, '../src/styles'),
-  build: path.resolve(__dirname, '../build')
+  app: path.join(__dirname, '../src/js'),
+  styles: path.join(__dirname, '../src/styles'),
+  build: path.join(__dirname, '../build')
 };
 
 const plugins = [
@@ -16,7 +16,7 @@ const plugins = [
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
-    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false')),
+    __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
   }),
   new webpack.optimize.OccurenceOrderPlugin(),
 ];
@@ -24,7 +24,7 @@ const plugins = [
 module.exports = {
   env: process.env.NODE_ENV,
   entry: {
-    app: path.resolve(PATHS.app, 'main.jsx'),
+    app: path.join(PATHS.app, 'main.jsx'),
     vendor: ['react'],
   },
   output: {
@@ -44,17 +44,17 @@ module.exports = {
       {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel'],
-        include: PATHS.app,
+        include: PATHS.app
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=10000',
+        loader: 'url-loader?limit=10000'
       },
-    ],
+    ]
   },
   plugins,
   devServer: {
-    contentBase: path.resolve(__dirname, '../src'),
+    contentBase: path.join(__dirname, '../src'),
     port: 3000,
     historyApiFallback: true,
   },
