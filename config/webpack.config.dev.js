@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-
+require("babel-polyfill");
 // App files location
 const PATHS = {
   app: path.join(__dirname, '../src/js'),
@@ -24,7 +24,7 @@ const plugins = [
 module.exports = {
   env: process.env.NODE_ENV,
   entry: {
-    app: path.join(PATHS.app, 'main.jsx'),
+    app: ['babel-polyfill', path.join(PATHS.app, 'main.jsx')],
     vendor: ['react'],
   },
   output: {
