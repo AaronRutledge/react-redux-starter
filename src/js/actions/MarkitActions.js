@@ -1,26 +1,29 @@
 
 import Types from './Types'
+// /example/index/{symbol}
+// /example/index/{symbol}/chart
+// /example/lookup/{search}
+// /example/quote/{symbol}
 
-const requestQuote = (symbol, timeframe="oneDay") =>
+const requestIndex = (symbol) =>
   ({
-    type: Types.MKT_QUOTE_REQUEST,
-    endPoint: '/index/205778',
-    params: {timeframe},
-    symbol: symbol,
+    type: Types.API_REQUEST_INDEX,
+    endPoint: `endex/index/{$symbol}`,
+    params: {},
     ajaxType: "GET",
-    onSuccess: receiveQuote
+    onSuccess: receiveIndex
   })
 
-const receiveQuote = (quote) =>
-  ({ type: Types.MKT_QUOTE_RECEIVE,
-    quote
+const receiveIndex = (index) =>
+  ({ type: Types.API_RECEIVE_INDEX,
+    index
   })
 
-const receiveMarkitApiFailure= () =>
+const receiveApiFailure= () =>
   ({ type: Types.MKT_API_FAILURE })
 
 export {
-  requestQuote,
-  receiveQuote,
+  requestIndex,
+  receiveIndex,
   receiveMarkitApiFailure
 }
