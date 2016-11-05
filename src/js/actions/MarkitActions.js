@@ -1,11 +1,11 @@
 
 import Types from './Types'
 
-const requestQuote = (symbol, exchange="NYS") =>
+const requestQuote = (symbol, timeframe="oneDay") =>
   ({
     type: Types.MKT_QUOTE_REQUEST,
-    endPoint: 'Quote/json',
-    params: {symbol, exchange},
+    endPoint: '/index/205778',
+    params: {timeframe},
     symbol: symbol,
     ajaxType: "GET",
     onSuccess: receiveQuote

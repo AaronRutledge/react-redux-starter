@@ -2,14 +2,14 @@ import React from 'react'
 
 const QuoteList = (props) =>
   <dl>
-    <dt>Name</dt>
-    <dd>{props.quote.Name}</dd>
+    <dt>Market Cap</dt>
+    <dd>{props.quote.marketCap}</dd>
     <dt>Last Price</dt>
-    <dd>{props.quote.LastPrice}</dd>
+    <dd>{props.quote.priceLast}</dd>
     <dt>High</dt>
-    <dd>{props.quote.High}</dd>
+    <dd>{props.quote.priceDayHigh}</dd>
     <dt>Low</dt>
-    <dd>{props.quote.Low}</dd>
+    <dd>{props.quote.priceDayLow}</dd>
   </dl>
 
 export default QuoteList
