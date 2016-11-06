@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import QuoteList from '../components/QuoteList'
 import {requestIndex} from '../actions/MarkitActions'
+import { Button } from 'react-toolbox/lib/button';
 
 class App extends React.Component {
 
@@ -32,7 +33,7 @@ class App extends React.Component {
     return (
       <div>
         <input type="text" onChange={this.handleSymbolUpdate}/>
-        <button onClick={this.onClickQuote}>Make Quote Call</button>
+         <Button onClick={this.onClickQuote} label="Make Quote Call" />
         <h1>{symbol}</h1>
         <QuoteList quote={this.props.quote}/>
       </div>
