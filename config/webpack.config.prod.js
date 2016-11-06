@@ -53,6 +53,14 @@ module.exports = {
         loaders: ['react-hot', 'babel'],
         include: PATHS.app
       },
+      {
+        test: /\.(scss|css)$/,
+        loaders: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader') + '?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          require.resolve('sass-loader') + '?sourceMap'
+        ]
+      },
       // Inline base64 URLs for <=8k images, direct URLs for the rest
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
