@@ -20,10 +20,10 @@ const receiveIndex = (index) =>
   })
 
 const receiveApiFailure= () =>
-  ({ type: Types.MKT_API_FAILURE })
+  ({ type: Types.API_FAILURE})
 
 export {
   requestIndex,
   receiveIndex,
-  receiveMarkitApiFailure
+  receiveApiFailure
 }

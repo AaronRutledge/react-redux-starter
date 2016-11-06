@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 import QuoteList from '../components/QuoteList'
-import {requestQuote} from '../actions/MarkitActions'
+import {requestIndex} from '../actions/MarkitActions'
 
 class App extends React.Component {
 
@@ -15,11 +15,11 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.props.requestQuote(this.props.symbol);
+    this.props.requestIndex(this.props.symbol);
   }
 
   onClickQuote() {
-    this.props.requestQuote(this.state.enteredSymbol);
+    this.props.requestIndex(this.state.enteredSymbol);
   }
 
   handleSymbolUpdate(e) {
@@ -33,7 +33,7 @@ class App extends React.Component {
       <div>
         <input type="text" onChange={this.handleSymbolUpdate}/>
         <button onClick={this.onClickQuote}>Make Quote Call</button>
-        <h1>{symbol.toUpperCase()}</h1>
+        <h1>{symbol}</h1>
         <QuoteList quote={this.props.quote}/>
       </div>
     );
@@ -41,23 +41,24 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  symbol: PropTypes.string.isRequired,
-  quote: PropTypes.object.isRequired,
-  requestQuote: PropTypes.func.isRequired
+  // symbol: PropTypes.string.isRequired,
+  // quote: PropTypes.object.isRequired,
+  // requestQuote: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
+    companyProfile: state.markitData.companyProfile,
+    dividends: state.markitData.dividends,
+    quote: state.markitData.quote,
     symbol: state.markitData.symbol,
-    quote: state.markitData.quote
-  };
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestQuote: (symbol) => dispatch(requestQuote(symbol))
+    requestIndex: (symbol) => dispatch(requestIndex(symbol))
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

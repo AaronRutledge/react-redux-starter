@@ -1,6 +1,13 @@
-import {take, call, put, select} from 'redux-saga/effects'
+import {
+  take,
+  call,
+  put,
+  select
+} from 'redux-saga/effects'
 import Types from '../actions/Types'
-import {receiveMarkitApiFailure} from '../actions/MarkitActions'
+import {
+  receiveApiFailure
+} from '../actions/MarkitActions'
 
 // This style of Saga is a common pattern.  It has a
 // worker and a watcher.
@@ -17,13 +24,13 @@ export default (api) => {
   // ----------
   // This is our worker.  It does the job.  In this case, we
   // get the qoute for the company
-  function * worker (endPoint, parameters, successAction, ajaxType) {
+  function* worker(endPoint, parameters, successAction, ajaxType) {
     // Set response to true to return empty array if empty string
     //var response = {ok: true}
     // make the call to the api
 
     var apiType;
-    switch(ajaxType) {
+    switch (ajaxType) {
       case "POST":
         apiType = api.postData;
         break;
@@ -36,18 +43,23 @@ export default (api) => {
       default:
         apiType = api.getData;
     }
-    var response = yield call(apiType, endPoint, parameters);
+    try {
+      const response = yield call(apiType, endPoint, parameters);
 
-    // success?
-    if (response.ok) {
-      if (!response.data) {
-        yield put(successAction({}))
+      // success?
+      //TODO: Add to try catch
+      if (response.ok) {
+        if (!response.data) {
+          yield put(successAction({}))
+        } else {
+          //TODO: Need to check for a invalid token message returned here
+          yield put(successAction(response.data))
+        }
       } else {
-        //TODO: Need to check for a invalid token message returned here
-        yield put(successAction(response.data))
+        yield put(receiveApiFailure())
       }
-    } else {
-      yield put(receiveMarkitApiFailure())
+    } catch (error) {
+      yield put(receiveApiFailure())
     }
   }
 
@@ -63,7 +75,7 @@ export default (api) => {
   // 4.  Calls the worker (above) to do the job.
   function * watcher () {
     while (true) {
-      const action = yield take(Types.MKT_QUOTE_REQUEST)
+      const action = yield take(Types.API_REQUEST_INDEX)
       yield call(worker, action.endPoint, action.params, action.onSuccess, action.ajaxType)
     }
   }

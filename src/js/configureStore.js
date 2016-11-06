@@ -31,8 +31,8 @@ export default function configureStore(initialState) {
     middleware = applyMiddleware(sagaMiddleware);
     enhancer = compose(autoRehydrate(), middleware);
   }
-
-  const store = createStore(rootReducer, initialState, enhancer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const store = createStore(rootReducer, initialState, composeEnhancers(enhancer));
   persistStore(store);
   // run sagas
   sagaMiddleware.run(sagas);
