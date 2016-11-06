@@ -8,19 +8,20 @@ import Types from './Types'
 const requestIndex = (symbol) =>
   ({
     type: Types.API_REQUEST_INDEX,
-    endPoint: `endex/index/{$symbol}`,
+    endPoint: `index/${symbol}`,
     params: {},
     ajaxType: "GET",
     onSuccess: receiveIndex
   })
 
-const receiveIndex = (index) =>
+const receiveIndex = response =>
   ({ type: Types.API_RECEIVE_INDEX,
-    index
+    index: response
   })
 
-const receiveApiFailure= () =>
-  ({ type: Types.API_FAILURE})
+const receiveApiFailure= (message) =>
+  ({ type: Types.API_FAILURE,
+  message})
 
 export {
   requestIndex,

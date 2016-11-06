@@ -45,21 +45,15 @@ export default (api) => {
     }
     try {
       const response = yield call(apiType, endPoint, parameters);
-
       // success?
-      //TODO: Add to try catch
       if (response.ok) {
-        if (!response.data) {
-          yield put(successAction({}))
-        } else {
-          //TODO: Need to check for a invalid token message returned here
-          yield put(successAction(response.data))
-        }
+        //TODO: Need to check for a invalid token message returned here
+        yield put(successAction(response.data))
       } else {
-        yield put(receiveApiFailure())
+        yield put(receiveApiFailure("bad data"))
       }
     } catch (error) {
-      yield put(receiveApiFailure())
+      yield put(receiveApiFailure("bad call "+error))
     }
   }
 

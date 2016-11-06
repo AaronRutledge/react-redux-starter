@@ -2,7 +2,7 @@ import Types from '../actions/Types'
 import { createReducer } from 'reduxsauce'
 
 export const INITIAL_STATE = {
-    "symbol": "RIO",
+    "symbol": "TSLA",
     "companyProfile": {
         "businessDescription": "",
         "officers": [{
@@ -51,9 +51,10 @@ const receiveIndex = (state, action) =>
   Object.assign({}, state, {
     fetching: false,
     error: null,
-    companyProfile: action.companyProfile,
-    dividends: action.dividends,
-    quote: action.quote
+    wholeEnchilada: action.index,
+    companyProfile: action.index.data.companyProfile,
+    dividends: action.index.data.dividends,
+    quote: action.index.data.quote
   })
 
 
@@ -61,6 +62,7 @@ const failure = (state, action) =>
   Object.assign({}, state, {
     fetching: false,
     error: true,
+    message: action,
   })
 
 // map our types to our handlers
